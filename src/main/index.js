@@ -1,6 +1,10 @@
 'use strict'
 
 import { app, BrowserWindow } from 'electron'
+import * as httpServer from './http-server.js'
+// const httpServer = require('./http-server.js')
+console.log('httpServer', httpServer)
+const server = httpServer.default.init()
 
 /**
  * Set `__static` path to static files in production
@@ -28,6 +32,7 @@ function createWindow () {
   mainWindow.loadURL(winURL)
 
   mainWindow.on('closed', () => {
+    server.close()
     mainWindow = null
   })
 }
